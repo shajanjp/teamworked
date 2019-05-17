@@ -12,7 +12,7 @@
 
         <div class="ui form">
 
-          <h1>Get set work</h1>
+          <h1>Get set team work</h1>
           <div class="field" id="projectlist">
             <label for="">Project</label>
             <select class="ui search fluid dropdown">
@@ -31,16 +31,22 @@
             </select> 
           </div>
 
-          <button class="ui icon button">
+          <div class="field" id="worklog">
+            <label for="">Well, I got these..</label>
+            <dropdown class="ui dropdown fluid" rows=""></dropdown>  
+          </div>
+
+          <button class="ui icon button" id="toggle-timer" data-state='0'>
             <i class="green play icon"></i>
           </button>
-          
+
         </div>
       </div>
     </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+  <script src="./js/tw-apis.js"></script>
   <script src="./js/script.js"></script>
 </body>
 </html>
