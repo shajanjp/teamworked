@@ -114,6 +114,20 @@ function startTimer({isBillable, projectId, taskId}){
     return data.json();
   });
 }
+
+function pauseTimer(timerId){
+  return fetch(`${TW_BASEURL}/me/timers/${timerId}/pause.json`, {
+    method: 'put',
+    headers: {
+      "Authorization": "BASIC " + TW_API_KEY_BASE64,
+      "Content-Type": "application/json"
+    }
+  })
+  .then(data => {
+    return data.json();
+  });
+}
+
 function resumeTimer(timerId){
   return fetch(`${TW_BASEURL}/me/timers/${timerId}/resume.json`, {
     method: 'put',
