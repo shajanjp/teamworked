@@ -90,7 +90,7 @@ $('#toggle-timer').on('click', (e) => {
     logCounter = 0;
     timerIsRunning = true;
     $('#toggle-timer i').removeClass('play green');
-    $('#toggle-timer i').addClass('pause blue');
+    $('#toggle-timer i').addClass('pause orange');
     intervalCounterInstance = setInterval(function(){
       logCounter += 1; 
       timeCounterElement.html(`${(logCounter / 60).toFixed(0)}:${logCounter % 60}`)
@@ -101,7 +101,7 @@ $('#toggle-timer').on('click', (e) => {
   else {
     let currentDateTime = getCurrentDateTime();
     timerIsRunning = false;
-    $('#toggle-timer i').removeClass('pause blue');
+    $('#toggle-timer i').removeClass('pause orange');
     $('#toggle-timer i').addClass('play green');
     clearInterval(intervalCounterInstance);
     timeCounterElement.html('00:00');
