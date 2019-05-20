@@ -13,7 +13,7 @@ $('#boardlist select').dropdown({onChange: updateTaskList})
 
 function updateCurrentTask(value, text){
   currentTaskId = value;
-  workLogDescriptionElement.val(`Works on ${text}`);
+  workLogDescriptionElement.val(`Works on ${text || 'magic'}`);
 }
 
 function updateTaskList(value, text){
