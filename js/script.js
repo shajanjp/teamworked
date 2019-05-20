@@ -1,7 +1,9 @@
 const TW_BASEURL = YOUR_TW_BASEURL;
 const TW_API_KEY = YOUR_TW_API_KEY;
-const timeCounterElement = $('#time-counter');
 const TW_API_KEY_BASE64 = btoa(TW_API_KEY + ":xxx");
+const timeCounterElement = $('#time-counter');
+const workLogDescriptionElement = $('#worklog textarea');
+
 let timerIsRunning = false;
 let currentTaskId;
 let currentProjectId;
@@ -11,6 +13,7 @@ $('#boardlist select').dropdown({onChange: updateTaskList})
 
 function updateCurrentTask(value, text){
   currentTaskId = value;
+  workLogDescriptionElement.val(`Works on ${text}`);
 }
 
 function updateTaskList(value, text){
