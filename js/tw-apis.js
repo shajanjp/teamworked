@@ -93,3 +93,25 @@ function logTimeEntry({taskId, date, time, description, hours, minutes}){
     return data.json();
   });
 }
+
+
+function startTimer({isBillable, projectId, taskId}){
+  return fetch(`${TW_BASEURL}/me/timers.json`, {
+    method: 'post',
+    body: JSON.stringify({
+      "timer": {
+        "isBillable": false,
+        "projectId": 296149,
+        "taskId": 13721200
+      }
+    }),
+    headers: {
+      "Authorization": "BASIC " + TW_API_KEY_BASE64,
+      "Content-Type": "application/json"
+    }
+  })
+  .then(data => {
+    return data.json();
+  });
+}
+}
