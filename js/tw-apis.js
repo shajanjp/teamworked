@@ -140,4 +140,16 @@ function resumeTimer(timerId){
     return data.json();
   });
 }
+
+function completeTimer(timerId){
+  return fetch(`${TW_BASEURL}/me/timers/${timerId}/complete.json`, {
+    method: 'put',
+    headers: {
+      "Authorization": "BASIC " + TW_API_KEY_BASE64,
+      "Content-Type": "application/json"
+    }
+  })
+  .then(data => {
+    return data.json();
+  });
 }
