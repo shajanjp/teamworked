@@ -1,10 +1,17 @@
 const TW_BASEURL = YOUR_TW_BASEURL;
 const TW_API_KEY = YOUR_TW_API_KEY;
-
+const timeCounterElement = $('#time-counter');
 const TW_API_KEY_BASE64 = btoa(TW_API_KEY + ":xxx");
+let timerIsRunning = false;
+let currentTaskId;
+let currentProjectId;
 
-$('#tasklist select').dropdown();
+$('#tasklist select').dropdown({onChange: updateCurrentTask});
 $('#boardlist select').dropdown({onChange: updateTaskList})
+
+function updateCurrentTask(value, text){
+  currentTaskId = value;
+}
 
 function updateTaskList(value, text){
   if(value){
@@ -16,7 +23,6 @@ function updateTaskList(value, text){
           name: card.name
         });
       })
-      console.log('boardCardsMarkup', boardCardsMarkup);
       $('#tasklist select').dropdown('change values', boardCardsMarkup);
     })
   }
@@ -24,6 +30,8 @@ function updateTaskList(value, text){
 
 function updateBoardList(value, text){
   let boardListMarkup = [];
+  currentProjectId = value;
+
   getProjectBoards(value)
   .then(boardsRes => {
     boardsRes.columns.forEach(board => {
@@ -32,7 +40,6 @@ function updateBoardList(value, text){
         name: board.name
       })
     })
-    console.log('boardListMarkup', boardListMarkup);
     $('#boardlist select')
     .dropdown('change values', boardListMarkup);
   })
@@ -50,6 +57,51 @@ getProjects()
   });
 })
 
+
+function getCurrentDateTime() {
+  let d = new Date(),
+  month = '' + (d.getMonth() + 1),
+  day = '' + d.getDate(),
+  year = d.getFullYear();
+  hours = d.getHours();
+  minutes = d.getMinutes();
+
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+  if (hours.length < 2) hours = '0' + hours;
+  if (minutes.length < 2) minutes = '0' + minutes;
+
+  return {
+    date: [year, month, day].join(''), 
+    time: [hours, minutes].join(':')
+  };
+}
+
+
+let intervalCounterInstance;
+let logCounter;
+
 $('#toggle-timer').on('click', (e) => {
-  alert('hello')
+  // start
+  if(timerIsRunning == false){
+    logCounter = 0;
+    timerIsRunning = true;
+    $('#toggle-timer i').removeClass('play green');
+    $('#toggle-timer i').addClass('pause blue');
+    intervalCounterInstance = setInterval(function(){
+      logCounter += 1; 
+      timeCounterElement.html(`${(logCounter / 60).toFixed(0)}:${logCounter % 60}`)
+    }, 1000);
+  }
+
+  // pause
+  else {
+    let currentDateTime = getCurrentDateTime();
+    timerIsRunning = false;
+    $('#toggle-timer i').removeClass('pause blue');
+    $('#toggle-timer i').addClass('play green');
+    clearInterval(intervalCounterInstance);
+    timeCounterElement.html('00:00');
+  }
+
 })
