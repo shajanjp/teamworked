@@ -4,7 +4,6 @@ const TW_API_KEY_BASE64 = btoa(TW_API_KEY + ":xxx");
 const timeCounterElement = $('#time-counter');
 const workLogDescriptionElement = $('#worklog textarea');
 
-let timerIsRunning = false;
 let currentTaskId;
 let currentProjectId;
 
@@ -61,23 +60,23 @@ getTimers()
   let timersMarkup = '';
   console.log('timers', timersRes);
   timersRes.timers.forEach(timer => {
-    timersMarkup += `<div class="ui segment" data-timerId='${timer.id}' data-isRunning='${(timer.running==true) ? '1' : '0'}'>
+    timersMarkup += `<div class="ui segment" data-timerId='${timer.id}' data-is-running='${(timer.running==true) ? '1' : '0'}'>
     <h4 class="ui header">${timer.projectName}</h4>
     <p>${timer.taskName}</p>
     <div class="ui icon basic fluid buttons">
-    <div class="ui button" title="Start / Pause / Resume timer" data-state="paused" id="toggle-timer">
+    <div class="ui button toggle-timer" title="Start / Pause / Resume timer">
     <i class="${(timer.running==true) ? 'orange pause' : 'green play'} icon"></i>
     </div>
 
-    <div class="ui button" id="timer-time">
+    <div class="ui button timer-time">
     ${secondsToTime(timer.duration)}
     </div>
 
-    <div class="ui button" title="Stop timer" id="complete-timer">
+    <div class="ui button stop-timer" title="Stop timer">
     <i class="square red play icon"></i>
     </div>
 
-    <div class="ui button" title="Save timelog" id="save-timer">
+    <div class="ui button log-time" title="Save timelog">
     <i class="blue save icon"></i>
     </div>
     </div>
@@ -85,8 +84,29 @@ getTimers()
   })
 
   $('#timers-list').html(timersMarkup);
+  $('#timers-list').on('click', '.toggle-timer', handleTimerToggle);
 
 })
+
+function handleTimerToggle(e){
+  let currentTimer = $(this).closest('.segment');
+  let timerIsRunning = currentTimer.data('is-running');
+  
+  // running
+  if(!!timerIsRunning){
+    currentTimer.data('is-running', 0);
+    $(currentTimer).find('.toggle-timer i').removeClass('pause orange');
+    $(currentTimer).find('.toggle-timer i').addClass('play green');
+  }
+
+  // paused
+  else {
+    currentTimer.data('is-running', 1);
+    $(currentTimer).find('.toggle-timer i').addClass('pause orange');
+    $(currentTimer).find('.toggle-timer i').removeClass('play green');
+  }
+
+}
 
 $('.create-timer').on('click', (e) => {
   $('.create-timer-form').modal('show');
@@ -103,19 +123,3 @@ $('.create-timer').on('click', (e) => {
   })
 })
 
-$('#toggle-timer').on('click', (e) => {
-  // start
-  if(timerIsRunning == false){
-    timerIsRunning = true;
-    $('#toggle-timer i').removeClass('play green');
-    $('#toggle-timer i').addClass('pause orange');
-  }
-
-  // pause
-  else {
-    timerIsRunning = false;
-    $('#toggle-timer i').removeClass('pause orange');
-    $('#toggle-timer i').addClass('play green');
-  }
-
-})
