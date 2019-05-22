@@ -55,37 +55,41 @@ function secondsToTime(seconds){
   return `${h}:${m}:${s}`;
 }
 
-getTimers()
-.then(timersRes => {
-  let timersMarkup = '';
-  console.log('timers', timersRes);
-  timersRes.timers.forEach(timer => {
-    timersMarkup += `<div class="ui segment" data-timer-id='${timer.id}' data-is-running='${(timer.running==true) ? '1' : '0'}'>
-    <h4 class="ui header">${timer.projectName}</h4>
-    <p>${timer.taskName}</p>
-    <div class="ui icon basic fluid buttons">
-    <div class="ui button toggle-timer" title="Start / Pause / Resume timer">
-    <i class="${(timer.running==true) ? 'orange pause' : 'green play'} icon"></i>
-    </div>
+function refreshTimers(){
+  return getTimers()
+  .then(timersRes => {
+    let timersMarkup = '';
+    console.log('timers', timersRes);
+    timersRes.timers.forEach(timer => {
+      timersMarkup += `<div class="ui segment" data-timer-id='${timer.id}' data-is-running='${(timer.running==true) ? '1' : '0'}'>
+      <h4 class="ui header">${timer.projectName}</h4>
+      <p>${timer.taskName}</p>
+      <div class="ui icon basic fluid buttons">
+      <div class="ui button toggle-timer" title="Start / Pause / Resume timer">
+      <i class="${(timer.running==true) ? 'orange pause' : 'green play'} icon"></i>
+      </div>
 
-    <div class="ui button timer-time">
-    ${secondsToTime(timer.duration)}
-    </div>
+      <div class="ui button timer-time">
+      ${secondsToTime(timer.duration)}
+      </div>
 
-    <div class="ui button stop-timer" title="Stop timer">
-    <i class="square red play icon"></i>
-    </div>
+      <div class="ui button stop-timer" title="Stop timer">
+      <i class="square red play icon"></i>
+      </div>
 
-    <div class="ui button log-time" title="Save timelog">
-    <i class="blue save icon"></i>
-    </div>
-    </div>
-    </div>`
+      <div class="ui button log-time" title="Save timelog">
+      <i class="blue save icon"></i>
+      </div>
+      </div>
+      </div>`
+    })
+
+    $('#timers-list').html(timersMarkup);
+    $('#timers-list').on('click', '.toggle-timer', handleTimerToggle);
   })
+}
 
-  $('#timers-list').html(timersMarkup);
-  $('#timers-list').on('click', '.toggle-timer', handleTimerToggle);
-})
+refreshTimers();
 
 function handleTimerToggle(e){
   let currentTimer = $(this).closest('.segment');
