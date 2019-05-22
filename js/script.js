@@ -60,7 +60,7 @@ getTimers()
   let timersMarkup = '';
   console.log('timers', timersRes);
   timersRes.timers.forEach(timer => {
-    timersMarkup += `<div class="ui segment" data-timerId='${timer.id}' data-is-running='${(timer.running==true) ? '1' : '0'}'>
+    timersMarkup += `<div class="ui segment" data-timer-id='${timer.id}' data-is-running='${(timer.running==true) ? '1' : '0'}'>
     <h4 class="ui header">${timer.projectName}</h4>
     <p>${timer.taskName}</p>
     <div class="ui icon basic fluid buttons">
