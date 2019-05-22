@@ -100,9 +100,7 @@ function handleTimerToggle(e){
   if(!!timerIsRunning){
     pauseTimer(currentTimerId)
     .then(timerPaused => {
-    currentTimer.data('is-running', 0);
-    $(currentTimer).find('.toggle-timer i').removeClass('pause orange');
-    $(currentTimer).find('.toggle-timer i').addClass('play green');      
+      return refreshTimers();
     })
   }
 
@@ -110,9 +108,7 @@ function handleTimerToggle(e){
   else {
     resumeTimer(currentTimerId)
     .then(timerResumed => {
-      currentTimer.data('is-running', 1);
-      $(currentTimer).find('.toggle-timer i').addClass('pause orange');
-      $(currentTimer).find('.toggle-timer i').removeClass('play green');
+     return refreshTimers();
     })
   }
 }
