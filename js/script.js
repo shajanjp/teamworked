@@ -85,27 +85,32 @@ getTimers()
 
   $('#timers-list').html(timersMarkup);
   $('#timers-list').on('click', '.toggle-timer', handleTimerToggle);
-
 })
 
 function handleTimerToggle(e){
   let currentTimer = $(this).closest('.segment');
+  let currentTimerId = currentTimer.data('timer-id'); 
   let timerIsRunning = currentTimer.data('is-running');
   
   // running
   if(!!timerIsRunning){
+    pauseTimer(currentTimerId)
+    .then(timerPaused => {
     currentTimer.data('is-running', 0);
     $(currentTimer).find('.toggle-timer i').removeClass('pause orange');
-    $(currentTimer).find('.toggle-timer i').addClass('play green');
+    $(currentTimer).find('.toggle-timer i').addClass('play green');      
+    })
   }
 
   // paused
   else {
-    currentTimer.data('is-running', 1);
-    $(currentTimer).find('.toggle-timer i').addClass('pause orange');
-    $(currentTimer).find('.toggle-timer i').removeClass('play green');
+    resumeTimer(currentTimerId)
+    .then(timerResumed => {
+      currentTimer.data('is-running', 1);
+      $(currentTimer).find('.toggle-timer i').addClass('pause orange');
+      $(currentTimer).find('.toggle-timer i').removeClass('play green');
+    })
   }
-
 }
 
 $('.create-timer').on('click', (e) => {
