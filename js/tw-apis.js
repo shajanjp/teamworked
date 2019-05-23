@@ -107,14 +107,14 @@ function getTimers(){
   });
 }
 
-function startTimer({isBillable, projectId, taskId}){
+function startTimer({projectId, taskId, isBillable}){
   return fetch(`${TW_BASEURL}/me/timers.json`, {
     method: 'post',
     body: JSON.stringify({
       "timer": {
-        "isBillable": false,
-        "projectId": 296149,
-        "taskId": 13721200
+        "isBillable": isBillable || 'false',
+        "projectId": projectId,
+        "taskId": taskId
       }
     }),
     headers: {
