@@ -26,7 +26,8 @@ function updateTaskList(value, text){
           name: card.name
         });
       })
-      $('#tasklist select').dropdown('change values', boardCardsMarkup);
+      $('#tasklist select')
+      .dropdown('change values', boardCardsMarkup);
     })
   }
 }
@@ -113,7 +114,7 @@ function handleTimerToggle(e){
 }
 
 $('#configure-form-button').on('click', (e) => {
-  $('#configure-tw-form').modal('toggle')
+  $('#configure-tw-form').modal('toggle');
 })
 
 $('.save-config-confirm').on('click', (e) => {
@@ -123,8 +124,21 @@ $('.save-config-confirm').on('click', (e) => {
   console.log('TW_BASEURL TW_API_KEY', TW_BASEURL, TW_API_KEY);
 })
 
+
+$('#create-timer-confirm').on('click', (e) => {
+  let projectId = $('#create-timer-form #projectlist select').dropdown('get value');
+  let taskId = $('#create-timer-form #tasklist').data('task-id');
+  startTimer({
+    projectId, 
+    taskId
+  })
+  .then(timerStarted => {
+    return refreshTimers();
+  })
+})
+
 $('.create-timer').on('click', (e) => {
-  $('.create-timer-form').modal('show');
+  $('#create-timer-form').modal('show');
   getProjects()
   .then(res => {
     let projectListMarkup = '';
@@ -137,5 +151,3 @@ $('.create-timer').on('click', (e) => {
     });
   })
 })
-
-
