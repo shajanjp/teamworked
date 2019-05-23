@@ -19,6 +19,15 @@
           Create Timer
         </div>
 
+        <br>
+        <button class="ui icon basic button" data-title='Configure' id="configure-form-button">
+          <i class="setting icon"></i>
+        </button>
+
+        <a href="http://teamwork.com" class="ui icon basic button" data-title="Help">
+          <i class="question icon"></i>
+        </a>
+
       </div>
     </div>
   </div>
@@ -52,19 +61,50 @@
       </div>
     </div>
     <div class="actions">
-      <div class="ui black deny button">
+      <div class="ui black basic deny button">
         Cancel
       </div>
-      <div class="ui positive right labeled icon button">
+      <div class="ui positive right labeled basic icon button create-timer-confirm">
         Create
         <i class="checkmark icon"></i>
       </div>
     </div>
   </div>
 
+  <!-- Configure Modal -->
+  <div class="ui mini modal" id="configure-tw-form">
+    <i class="close icon"></i>
+    <div class="header">
+      Configure Teamwork
+    </div>
+
+    <div class="content">
+      <div class="ui fluid form">
+        <div class="field">
+          <label>Teamwork URL</label>
+          <input type="text" name="tw-url" id='tw-base-url' placeholder="http://your-company.teamwork.com">
+        </div>
+        <div class="field">
+          <label>First Name</label>
+          <input type="text" name="tw-api-key" id='tw-api-key' placeholder="Teamwork API Key">
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <div class="ui black basic deny button">
+        Discard
+      </div>
+      <div class="ui positive right labeled basic icon button save-config-confirm">
+        Save
+        <i class="checkmark icon"></i>
+      </div>
+    </div>
+  </div>
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-  <script src="./js/config.js"></script>
   <script src="./js/tw-apis.js"></script>
   <script src="./js/script.js"></script>
 </body>
