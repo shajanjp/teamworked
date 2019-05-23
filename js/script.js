@@ -1,6 +1,6 @@
-const TW_BASEURL = YOUR_TW_BASEURL;
-const TW_API_KEY = YOUR_TW_API_KEY;
-const TW_API_KEY_BASE64 = btoa(TW_API_KEY + ":xxx");
+let TW_BASEURL = '';
+let TW_API_KEY = '';
+let TW_API_KEY_BASE64 = btoa(TW_API_KEY + ":xxx");
 const timeCounterElement = $('#time-counter');
 const workLogDescriptionElement = $('#worklog textarea');
 
@@ -59,7 +59,6 @@ function refreshTimers(){
   return getTimers()
   .then(timersRes => {
     let timersMarkup = '';
-    console.log('timers', timersRes);
     timersRes.timers.forEach(timer => {
       timersMarkup += `<div class="ui segment" data-timer-id='${timer.id}' data-is-running='${(timer.running==true) ? '1' : '0'}'>
       <h4 class="ui header">${timer.projectName}</h4>
@@ -89,7 +88,7 @@ function refreshTimers(){
   })
 }
 
-refreshTimers();
+// refreshTimers();
 
 function handleTimerToggle(e){
   let currentTimer = $(this).closest('.segment');
@@ -108,10 +107,21 @@ function handleTimerToggle(e){
   else {
     resumeTimer(currentTimerId)
     .then(timerResumed => {
-     return refreshTimers();
+      return refreshTimers();
     })
   }
 }
+
+$('#configure-form-button').on('click', (e) => {
+  $('#configure-tw-form').modal('toggle')
+})
+
+$('.save-config-confirm').on('click', (e) => {
+  TW_BASEURL = $('#configure-tw-form').find('#tw-base-url').val() 
+  TW_API_KEY = $('#configure-tw-form').find('#tw-api-key').val() 
+  TW_API_KEY_BASE64 = btoa(TW_API_KEY + ":xxx");
+  console.log('TW_BASEURL TW_API_KEY', TW_BASEURL, TW_API_KEY);
+})
 
 $('.create-timer').on('click', (e) => {
   $('.create-timer-form').modal('show');
@@ -127,4 +137,5 @@ $('.create-timer').on('click', (e) => {
     });
   })
 })
+
 
