@@ -7,14 +7,14 @@ const workLogDescriptionElement = $('#worklog textarea');
 let currentTaskId;
 let currentProjectId;
 
-$('#tasklist select').dropdown({onChange: updateCurrentTask});
 $('#boardlist select').dropdown({onChange: updateTaskList})
+$('#tasklist select').dropdown({onChange: onTaskChange})
 $('.ui .accordion').accordion()
 
-function updateCurrentTask(value, text){
-  currentTaskId = value;
-  workLogDescriptionElement.val(`Works on ${text || 'magic'}`);
+function onTaskChange(value, text){
+  $('#tasklist').data('task-id', value);
 }
+
 
 function updateTaskList(value, text){
   if(value){
