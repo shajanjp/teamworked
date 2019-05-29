@@ -94,6 +94,24 @@ function logTimeEntry({taskId, date, time, description, hours, minutes}){
   });
 }
 
+function logTimer(timeLogId, description){
+  return fetch(`${TW_BASEURL}/time_entries/${timeLogId}.json`, {
+    method: 'put',
+    headers: {
+      "Authorization": "BASIC " + TW_API_KEY_BASE64,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      "time-entry": {
+        description: description || `worked on this task`
+      }
+    })
+  })
+  .then(data => {
+    return data.json();
+  });
+}
+
 function getTimers(){
   return fetch(`${TW_BASEURL}/me/timers.json`, {
     method: 'get',
