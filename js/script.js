@@ -138,16 +138,6 @@ function handleTimerToggle(e){
   }
 }
 
-$('#configure-form-button').on('click', (e) => {
-  $('#configure-tw-form').modal('toggle');
-})
-
-$('.save-config-confirm').on('click', (e) => {
-  TW_BASEURL = $('#configure-tw-form').find('#tw-base-url').val() 
-  TW_API_KEY = $('#configure-tw-form').find('#tw-api-key').val() 
-  TW_API_KEY_BASE64 = btoa(TW_API_KEY + ":xxx");
-  console.log('TW_BASEURL TW_API_KEY', TW_BASEURL, TW_API_KEY);
-})
 
 
 $('#create-timer-confirm').on('click', (e) => {
