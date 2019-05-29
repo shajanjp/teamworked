@@ -153,6 +153,19 @@ function resumeTimer(timerId){
   });
 }
 
+function deleteTimer(timerId){
+  return fetch(`${TW_BASEURL}/me/timers/${timerId}.json`, {
+    method: 'delete',
+    headers: {
+      "Authorization": "BASIC " + TW_API_KEY_BASE64,
+      "Content-Type": "application/json"
+    }
+  })
+  .then(data => {
+    return data.json();
+  });
+}
+
 function completeTimer(timerId){
   return fetch(`${TW_BASEURL}/me/timers/${timerId}/complete.json`, {
     method: 'put',
