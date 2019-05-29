@@ -73,8 +73,8 @@ function refreshTimers(){
       ${secondsToTime(timer.duration)}
       </div>
 
-      <div class="ui button stop-timer" title="Stop timer">
-      <i class="square red play icon"></i>
+      <div class="ui button delete-timer" title="Delete timer">
+      <i class="red trash icon"></i>
       </div>
 
       <div class="ui button log-time" title="Save timelog">
