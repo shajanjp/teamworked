@@ -94,17 +94,29 @@ $('#timers-list').on('click', '.delete-timer', handleTimerDelete);
 
 
 function handleTimerLog(e){
+let taskDescriptionModal = $('#task-description-modal');
   let currentTimer = $(this).closest('.segment');
-  let taskDescription = currentTimer.find('.task-title').html();
   let currentTimerId = currentTimer.data('timer-id');
+  let taskDescription = currentTimer.find('.task-title').html();
+  
+  taskDescriptionModal.data('timer-id', currentTimerId);
+  taskDescriptionModal.find('textarea').val(`Woks on ${taskDescription}`);
+
+  $('#task-description-modal').modal('toggle');
+}
+
+$('#confirm-task-description').on('click', (e) => {
+  let taskDescriptionModal = $('#task-description-modal');
+  let currentTimerId = taskDescriptionModal.data('timer-id');
+  let taskDescription = taskDescriptionModal.find('textarea').val();
   completeTimer(currentTimerId)
   .then(completed => {
-    return logTimer(completed.timeLogId, `Woks on ${taskDescription}`)
+    return logTimer(completed.timeLogId, taskDescription)
   })
   .then(timeLogged => {
     return refreshTimers();
   })
-}
+})
 
 function handleTimerDelete(e){
   let currentTimer = $(this).closest('.segment');
