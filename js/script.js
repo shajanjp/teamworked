@@ -22,7 +22,7 @@ function updateTaskList(value, text){
     getBoardCards(value).then(cardRes => {
       cardRes.cards.forEach(card => {
         boardCardsMarkup.push({
-          value: card.id, 
+          value: card.taskId, 
           name: card.name
         });
       })
