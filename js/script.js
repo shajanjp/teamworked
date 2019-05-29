@@ -90,6 +90,15 @@ function refreshTimers(){
 }
 
 // refreshTimers();
+function handleTimerLog(e){
+  let currentTimer = $(this).closest('.segment');
+  let currentTimerId = currentTimer.data('timer-id'); 
+  completeTimer(currentTimerId)
+  .then(completed => {
+
+    return refreshTimers();
+  })
+}
 
 function handleTimerDelete(e){
   let currentTimer = $(this).closest('.segment');
