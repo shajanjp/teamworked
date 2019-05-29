@@ -95,10 +95,13 @@ $('#timers-list').on('click', '.delete-timer', handleTimerDelete);
 
 function handleTimerLog(e){
   let currentTimer = $(this).closest('.segment');
-  let currentTimerId = currentTimer.data('timer-id'); 
+  let taskDescription = currentTimer.find('.task-title').html();
+  let currentTimerId = currentTimer.data('timer-id');
   completeTimer(currentTimerId)
   .then(completed => {
-
+    return logTimer(completed.timeLogId, `Woks on ${taskDescription}`)
+  })
+  .then(timeLogged => {
     return refreshTimers();
   })
 }
