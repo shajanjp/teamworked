@@ -63,7 +63,7 @@ function refreshTimers(){
     timersRes.timers.forEach(timer => {
       timersMarkup += `<div class="ui segment" data-timer-id='${timer.id}' data-is-running='${(timer.running==true) ? '1' : '0'}'>
       <h4 class="ui header">${timer.projectName}</h4>
-      <p>${timer.taskName}</p>
+      <p class='task-title'>${timer.taskName}</p>
       <div class="ui icon basic fluid buttons">
       <div class="ui button toggle-timer" title="Start / Pause / Resume timer">
       <i class="${(timer.running==true) ? 'orange pause' : 'green play'} icon"></i>
