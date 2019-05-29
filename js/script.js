@@ -150,7 +150,19 @@ function handleTimerToggle(e){
   }
 }
 
+if(typeof(browser) !== "undefined"){
+  browser.storage.local.get(['TW_BASEURL', 'TW_API_KEY'])
+  .then(data => {
+    TW_BASEURL = data['TW_BASEURL'];
+    TW_API_KEY = data['TW_API_KEY'];
+    TW_API_KEY_BASE64 = btoa(TW_API_KEY + ":xxx");
+    refreshTimers();
+  })
+}
 
+if(TW_BASEURL && TW_API_KEY){
+  refreshTimers()
+}
 
 $('#create-timer-confirm').on('click', (e) => {
   let projectId = $('#create-timer-form #projectlist select').dropdown('get value');
