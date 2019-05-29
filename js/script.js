@@ -91,6 +91,16 @@ function refreshTimers(){
 
 // refreshTimers();
 
+function handleTimerDelete(e){
+  let currentTimer = $(this).closest('.segment');
+  let currentTimerId = currentTimer.data('timer-id'); 
+  let timerIsRunning = currentTimer.data('is-running');
+  deleteTimer(currentTimerId)
+  .then(timerDeleted => {
+    refreshTimers();
+  })
+}
+
 function handleTimerToggle(e){
   let currentTimer = $(this).closest('.segment');
   let currentTimerId = currentTimer.data('timer-id'); 
