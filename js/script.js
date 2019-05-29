@@ -86,6 +86,8 @@ function refreshTimers(){
 
     $('#timers-list').html(timersMarkup);
     $('#timers-list').on('click', '.toggle-timer', handleTimerToggle);
+    $('#timers-list').on('click', '.log-time', handleTimerLog);
+    $('#timers-list').on('click', '.delete-timer', handleTimerDelete);
   })
 }
 
