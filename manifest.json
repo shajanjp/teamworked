@@ -1,0 +1,32 @@
+{
+
+  "description": "Easy way to create and manage task timers in teamwork.",
+  "manifest_version": 2,
+  "author": "Shajan Jacob",
+  "name": "Desktiming",
+  "version": "0.1",
+  "homepage_url": "https://github.com/shajanjp/teamworked",
+  "icons": {
+    "64": "icons/timer.png"
+  },
+
+  "permissions": [
+    "webRequest",
+    "storage"
+  ],
+
+  "options_ui": {
+    "page": "options.html"
+  },
+
+  "browser_action": {
+    "default_icon": "icons/timer.png",
+    "theme_icons": [{
+      "light": "icons/timer.png",
+      "dark": "icons/timer.png",
+      "size": 64
+    }],
+    "default_title": "Teamworked",
+    "default_popup": "index.html"
+  }
+}
