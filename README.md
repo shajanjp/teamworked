@@ -1,2 +1,9 @@
 # Teamworked
-Unofficial pluggin for time logging in teamwork :clock9: :open_file_folder: :date:
+Unofficial firefox pluggin for teamwork time logging :clock9: :open_file_folder: :date:
+
+# Install
+
+
+# Configure
+
+# Usage
